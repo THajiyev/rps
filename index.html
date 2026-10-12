@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rock Paper Scissors Simulator</title>
+  <meta name="description" content="Watch rocks, papers and scissors bounce around an arena and convert each other until one team takes over.">
+  <meta name="theme-color" content="#f6f7f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Rock <span class="dot">·</span> Paper <span class="dot">·</span> Scissors</h1>
+    <p class="sub">Collide to convert. The last team standing wins.</p>
+  </header>
+
+  <main class="layout">
+    <section class="card arena-card" aria-label="Arena">
+      <div class="arena-wrap" id="arenaWrap">
+        <canvas id="arena" aria-label="Simulation arena"></canvas>
+        <div id="overlay" class="overlay" hidden>
+          <div class="overlay-box">
+            <div id="winEmoji" class="win-emoji"></div>
+            <h2 id="winText"></h2>
+            <p id="winSub" class="muted"></p>
+            <button id="againBtn" class="btn primary" type="button">Play again</button>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="playBtn" class="btn primary" type="button">▶ Start</button>
+        <button id="resetBtn" class="btn" type="button">↺ Reset</button>
+        <span class="timer" id="timer" aria-live="off">0.0s</span>
+      </div>
+    </section>
+
+    <section class="card stats-card" aria-label="Population">
+      <h2>Population</h2>
+      <div class="bars">
+        <div class="bar-col" data-type="rock">
+          <span class="pct">33%</span>
+          <div class="bar-track"><div class="bar-fill"></div></div>
+          <span class="bar-label">🪨 <span class="count">0</span></span>
+        </div>
+        <div class="bar-col" data-type="paper">
+          <span class="pct">33%</span>
+          <div class="bar-track"><div class="bar-fill"></div></div>
+          <span class="bar-label">📄 <span class="count">0</span></span>
+        </div>
+        <div class="bar-col" data-type="scissors">
+          <span class="pct">33%</span>
+          <div class="bar-track"><div class="bar-fill"></div></div>
+          <span class="bar-label">✂️ <span class="count">0</span></span>
+        </div>
+      </div>
+      <h3>Share over time</h3>
+      <canvas id="history" class="history" aria-label="Share of each team over time"></canvas>
+    </section>
+
+    <section class="card settings-card" aria-label="Settings">
+      <h2>Settings</h2>
+
+      <div class="field">
+        <span class="label">Arena size</span>
+        <div class="segmented" role="radiogroup" aria-label="Arena size" id="sizeGroup">
+          <button type="button" role="radio" data-size="small" aria-checked="false">Small</button>
+          <button type="button" role="radio" data-size="medium" aria-checked="true">Medium</button>
+          <button type="button" role="radio" data-size="large" aria-checked="false">Large</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="perTeam">Players per team <output id="perTeamOut">25</output></label>
+        <input type="range" id="perTeam" min="1" max="75" value="25">
+      </div>
+
+      <button type="button" class="link-btn" id="customToggle" aria-expanded="false" aria-controls="customFields">
+        Customize each team
+      </button>
+      <div id="customFields" class="custom" hidden>
+        <label class="team-input"><span>🪨 Rock</span><input type="number" inputmode="numeric" min="0" data-type="rock" value="25"></label>
+        <label class="team-input"><span>📄 Paper</span><input type="number" inputmode="numeric" min="0" data-type="paper" value="25"></label>
+        <label class="team-input"><span>✂️ Scissors</span><input type="number" inputmode="numeric" min="0" data-type="scissors" value="25"></label>
+        <p class="hint" id="customHint"></p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="speed">Speed <output id="speedOut">1×</output></label>
+        <input type="range" id="speed" min="0.25" max="4" step="0.25" value="1">
+      </div>
+
+      <label class="switch">
+        <input type="checkbox" id="hunt">
+        <span class="track" aria-hidden="true"></span>
+        <span class="switch-text">
+          Hunt mode
+          <small>Players chase what they beat and flee what beats them.</small>
+        </span>
+      </label>
+    </section>
+  </main>
+
+  <footer class="foot muted">Rock beats scissors · Scissors beat paper · Paper beats rock</footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
