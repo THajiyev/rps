@@ -4,6 +4,7 @@
   const TYPES = ['rock', 'paper', 'scissors'];
   const NAMES = ['Rock', 'Paper', 'Scissors'];
   const EMOJI = ['🪨', '📄', '✂️'];
+  const TINT = [0.75, 0.8, 0.22];
   const PREY = t => (t + 2) % 3;
   const PREDATOR = t => (t + 1) % 3;
 
@@ -270,7 +271,7 @@
       c.width = c.height = size;
       const g = c.getContext('2d');
       g.fillStyle = colors[t];
-      g.globalAlpha = 0.22;
+      g.globalAlpha = TINT[t];
       g.beginPath();
       g.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
       g.fill();
